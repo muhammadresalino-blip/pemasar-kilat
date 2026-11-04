@@ -19,6 +19,7 @@ Aplikasi belajar & kalkulator digital marketing. Gratis, offline-first, tanpa ak
 - **4 bab materi** + studi kasus nyata
 - **Kuis per bab** (3 soal) + **kuis campur** (10 soal acak dari 21 bank soal)
 - **Catatan pribadi per bab** (tersimpan otomatis)
+- **Mode Fokus Belajar** — sembunyikan navigasi & kartu lain, perbesar teks, fokus satu bab, plus timer Pomodoro 25 menit dengan bunyi bip di akhir sesi
 
 ### Planner & Tracker
 - **Planner mingguan** — content calendar auto-save + auto-generate jadwal
@@ -26,6 +27,7 @@ Aplikasi belajar & kalkulator digital marketing. Gratis, offline-first, tanpa ak
 - **Streak** — hitung hari berturut-turut mencatat
 - **Grafik profit 14 hari** (hijau untung, merah rugi)
 - **Ringkasan mingguan** — minggu ini vs minggu lalu
+- **Export gambar mingguan** — PNG 1080×1080 berisi profit, biaya, revenue, perbandingan minggu lalu, dan grafik 7 hari; siap dibagikan
 - **Target revenue bulanan** + progress bar
 - **Checklist marketing mingguan** (7 tugas, reset per minggu)
 
@@ -33,8 +35,10 @@ Aplikasi belajar & kalkulator digital marketing. Gratis, offline-first, tanpa ak
 - **Import CSV** dari Facebook/TikTok/Shopee Ads Manager (header: Tanggal, Spend, Revenue)
 - **Export CSV** (planner & tracker) dan **JSON backup lengkap**
 - **Laporan bulanan** → cetak / simpan PDF (total, progress target, rincian harian)
+- **Gambar ringkasan mingguan** (PNG 1080×1080) untuk story/feed atau laporan klien
 - **Notifikasi browser** untuk reminder
-- **Dark mode** dan layout responsif (mobile friendly)
+- **Dark mode** hangat (hijau/krem) dan layout responsif (mobile friendly)
+- **Design system** konsisten: token radius/shadow, transisi halaman halus, dukungan `prefers-reduced-motion`, fokus keyboard terlihat
 
 ### PWA & Penyimpanan
 - **Installable PWA** dengan ikon 192/512, works offline penuh

@@ -18,8 +18,13 @@
       --green:#1D6F42;--green-dark:#14502F;--green-soft:#E3F2EA;--green-text:#14502F;
       --bg:#FAF9F5;--surface:#F6F5F0;--ink:#1C1C1A;--muted:#5F5E57;
       --border:#D9D6CA;--border-soft:#E3E1D8;--blue:#2B579A;--orange:#B8391A;
-      --white:#fff;--shadow:0 8px 24px rgba(28,28,26,.06);
+      --white:#fff;
+      --r-xs:8px;--r-sm:10px;--r-md:14px;--r-lg:18px;--r-pill:999px;
+      --shadow-sm:0 2px 8px rgba(28,28,26,.05);
+      --shadow:0 8px 24px rgba(28,28,26,.06);
+      --shadow-lg:0 16px 40px rgba(28,28,26,.12);
       --accent:var(--green);--accent-hover:var(--green-dark);
+      --btn-bg:var(--green);
       --success:var(--green);--success-text:var(--green-text);
       --warn:var(--orange);--warn-text:var(--orange);
       --error:#ea4335;--error-text:#c5221f;--error-btn:#B8391A;
@@ -29,45 +34,56 @@
       --bg:#14140F;--surface:#1D1D17;--ink:#F1EFE6;--muted:#A8A599;
       --border:#33322A;--border-soft:#2A2921;
       --green:#2E8B57;--green-dark:#1F6B41;--green-soft:#1B2E22;--green-text:#7FD3A2;
+      --btn-bg:#287A4C;
       --blue:#7AA7E0;--orange:#E07A5F;
-      --white:#1A1A14;--shadow:0 8px 24px rgba(0,0,0,.35);
+      --white:#1A1A14;
+      --shadow-sm:0 2px 8px rgba(0,0,0,.3);
+      --shadow:0 8px 24px rgba(0,0,0,.35);
+      --shadow-lg:0 16px 40px rgba(0,0,0,.5);
       --warn:#E0A05F;--warn-text:#E8B87F;
       --error:#E07A6F;--error-text:#F0A79E;--error-btn:#A83A2A;
       --input-bg:#1D1D17;
     }
     *{margin:0;padding:0;box-sizing:border-box}
+    button{font-family:inherit}
     body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;transition:background .3s,color .3s}
     header{background:var(--white);border-bottom:1px solid var(--border-soft);padding:12px 18px;display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"brand nav actions";align-items:center;gap:14px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
     .brand{display:flex;align-items:center;gap:10px;grid-area:brand}
-    .brandmark{width:32px;height:32px;border-radius:10px;background:var(--green);display:grid;place-items:center;color:white;font-size:18px;font-weight:800}
+    .brandmark{width:32px;height:32px;border-radius:var(--r-sm);background:var(--green);display:grid;place-items:center;color:white;font-size:18px;font-weight:800}
     header h1{font-size:20px;letter-spacing:-.5px;color:var(--ink)}
-    nav{display:flex;gap:4px;background:var(--surface);padding:5px;border-radius:12px;grid-area:nav;justify-self:center;max-width:100%;overflow-x:auto;scrollbar-width:none}
+    nav{display:flex;gap:4px;background:var(--surface);padding:5px;border-radius:var(--r-md);grid-area:nav;justify-self:center;max-width:100%;overflow-x:auto;scrollbar-width:none}
     nav::-webkit-scrollbar{display:none}
-    nav button{background:transparent;color:var(--muted);border:0;padding:8px 13px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;transition:.18s ease;white-space:nowrap}
+    nav button{background:transparent;color:var(--muted);border:0;padding:8px 13px;border-radius:var(--r-sm);cursor:pointer;font-size:13px;font-weight:600;transition:.18s ease;white-space:nowrap}
     nav button:hover{color:var(--ink)}
     nav button.active{background:var(--white);color:var(--green-text);box-shadow:0 1px 4px rgba(0,0,0,.08)}
     .header-actions{display:flex;align-items:center;gap:8px;grid-area:actions;justify-self:end}
-    .theme-toggle,.pwa-install{width:38px;height:38px;padding:0;border-radius:10px;background:var(--white);color:var(--green-text);border:1px solid var(--border);cursor:pointer;display:grid;place-items:center;transition:.18s ease}
+    .theme-toggle,.pwa-install{width:38px;height:38px;padding:0;border-radius:var(--r-sm);background:var(--white);color:var(--green-text);border:1px solid var(--border);cursor:pointer;display:grid;place-items:center;transition:.18s ease}
     .theme-toggle:hover,.pwa-install:hover{background:var(--green-soft);border-color:var(--green)}
     .pwa-install{width:auto;padding:0 12px;font-size:13px;font-weight:600;gap:6px}
     main{max-width:1100px;margin:30px auto;padding:0 20px}
-    .page{display:none;animation:fadeIn .3s ease}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-    .page.active{display:block}
-    .card{background:var(--white);border:1px solid var(--border-soft);border-radius:18px;padding:24px;margin-bottom:24px;box-shadow:var(--shadow);transition:background .3s}
+    html{scroll-behavior:smooth;scroll-padding-top:96px}
+    .page{display:none}
+    .page.active{display:block;animation:pageIn .34s cubic-bezier(.2,.7,.3,1)}
+    @keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    :focus-visible{outline:2px solid var(--green);outline-offset:2px}
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+    }
+    .card{background:var(--white);border:1px solid var(--border-soft);border-radius:var(--r-lg);padding:24px;margin-bottom:24px;box-shadow:var(--shadow);transition:background .3s}
     .card h2{font-size:18px;margin:0 0 18px;letter-spacing:-.2px;color:var(--ink);display:flex;align-items:center;gap:8px}
     .tip{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--surface);color:var(--muted);font-size:11px;cursor:help;position:relative;flex-shrink:0}
     .tip:hover::after{content:attr(data-tip);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--white);padding:8px 12px;border-radius:8px;font-size:12px;z-index:10;max-width:280px;white-space:normal;box-shadow:var(--shadow)}
     label{display:block;margin:12px 0 5px;font-size:13px;font-weight:600;color:var(--muted)}
-    input,select,textarea{width:100%;border:1px solid var(--border);border-radius:10px;padding:12px 13px;background:var(--white);color:var(--ink);font:14px inherit;outline:none;margin-bottom:10px;transition:all .18s ease}
+    input,select,textarea{width:100%;border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 13px;background:var(--white);color:var(--ink);font-family:inherit;font-size:14px;outline:none;margin-bottom:10px;transition:all .18s ease}
     input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px color-mix(in srgb, var(--green) 15%, transparent)}
-    .btn{background:var(--green);color:white;border:0;border-radius:11px;padding:12px 20px;font:600 14px inherit;display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;transition:.18s ease;text-decoration:none}
+    .btn{background:var(--btn-bg);color:white;border:0;border-radius:var(--r-sm);padding:12px 20px;font-family:inherit;font-size:14px;font-weight:600;line-height:1.2;display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;transition:.18s ease;text-decoration:none}
     .btn:hover{background:var(--green-dark);transform:translateY(-1px)}
     .btn-ok{background:var(--green-soft);color:var(--green-text)}
     .btn-ok:hover{background:color-mix(in srgb, var(--green) 20%, var(--white))}
     .btn-warn{background:color-mix(in srgb, var(--orange) 14%, var(--white));color:var(--orange)}
     .btn-danger{background:color-mix(in srgb, var(--error) 12%, var(--white));color:var(--orange)}
-    .result{background:var(--green-soft);color:var(--green-text);border-radius:12px;padding:16px;margin-top:16px;font-weight:600;word-break:break-all;border:1px solid color-mix(in srgb, var(--green) 20%, transparent)}
+    .result{background:var(--green-soft);color:var(--green-text);border-radius:var(--r-md);padding:16px;margin-top:16px;font-weight:600;word-break:break-all;border:1px solid color-mix(in srgb, var(--green) 20%, transparent)}
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     @media(max-width:760px){
@@ -77,39 +93,39 @@
       .card{padding:18px}
       main{margin:20px auto}
     }
-    .plan-day{border:1px solid var(--border-soft);border-radius:12px;padding:12px;margin-bottom:12px;background:var(--surface)}
+    .plan-day{border:1px solid var(--border-soft);border-radius:var(--r-md);padding:12px;margin-bottom:12px;background:var(--surface)}
     .plan-day h4{font-size:14px;margin-bottom:8px;color:var(--ink)}
     .plan-day textarea{margin-bottom:0;min-height:60px;background:var(--white)}
-    .notice{padding:14px 16px;border-radius:12px;background:var(--green-soft);color:var(--green-text);font-size:14px;border:1px solid color-mix(in srgb, var(--green) 20%, transparent);margin:12px 0;line-height:1.6}
+    .notice{padding:14px 16px;border-radius:var(--r-md);background:var(--green-soft);color:var(--green-text);font-size:14px;border:1px solid color-mix(in srgb, var(--green) 20%, transparent);margin:12px 0;line-height:1.6}
     .notice.warn{background:color-mix(in srgb, var(--orange) 14%, var(--white));color:var(--orange);border-color:color-mix(in srgb, var(--orange) 32%, transparent)}
     .notice.error{background:#fbecea;color:var(--error-text);border-color:color-mix(in srgb, var(--error) 32%, transparent)}
     .notice b{font-weight:700}
     .template-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:15px}
-    .template-chip{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:12px 15px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:all .2s;text-align:center}
+    .template-chip{background:var(--white);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 15px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:all .2s;text-align:center}
     .template-chip:hover,.template-chip.selected{border-color:var(--green);color:var(--green-text);background:var(--green-soft);box-shadow:0 2px 8px rgba(0,0,0,.04)}
-    .quiz-item{background:var(--surface);border:1px solid var(--border-soft);border-radius:14px;padding:18px;margin-bottom:16px}
-    .quiz-opt{display:block;padding:10px 14px;margin:6px 0;border-radius:10px;cursor:pointer;font-size:14px;border:1px solid var(--border);background:var(--white);transition:all .15s}
+    .quiz-item{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-md);padding:18px;margin-bottom:16px}
+    .quiz-opt{display:block;padding:10px 14px;margin:6px 0;border-radius:var(--r-sm);cursor:pointer;font-size:14px;border:1px solid var(--border);background:var(--white);transition:all .15s}
     .quiz-opt:hover{border-color:var(--green);transform:translateX(3px)}
     .quiz-opt.correct{border-color:var(--green);background:var(--green-soft);color:var(--green-text);font-weight:650}
     .quiz-opt.wrong{border-color:var(--orange);background:color-mix(in srgb, var(--error) 12%, var(--white));color:var(--orange)}
     .tracker-row{display:grid;grid-template-columns:1fr 1fr 1fr auto auto;gap:10px;align-items:center;padding:12px;border-bottom:1px solid var(--border-soft)}
-    .tracker-total{background:var(--green-dark);color:white;border-radius:12px;padding:15px;margin-top:20px;font-weight:700;text-align:center;box-shadow:var(--shadow)}
-    .case-study{background:color-mix(in srgb, var(--orange) 14%, var(--white));border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:16px;margin:15px 0;font-size:14px;color:var(--ink)}
+    .tracker-total{background:var(--green-dark);color:white;border-radius:var(--r-md);padding:15px;margin-top:20px;font-weight:700;text-align:center;box-shadow:var(--shadow)}
+    .case-study{background:color-mix(in srgb, var(--orange) 14%, var(--white));border-left:4px solid var(--orange);border-radius:0 var(--r-md) var(--r-md) 0;padding:16px;margin:15px 0;font-size:14px;color:var(--ink)}
     .case-study strong{color:var(--orange)}
-    .platform-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;background:var(--surface);padding:6px;border-radius:12px}
-    .platform-tab{padding:8px 16px;border-radius:8px;border:0;background:transparent;cursor:pointer;font-size:13px;font-weight:650;color:var(--muted);transition:all .2s}
+    .platform-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;background:var(--surface);padding:6px;border-radius:var(--r-md)}
+    .platform-tab{padding:8px 16px;border-radius:var(--r-xs);border:0;background:transparent;cursor:pointer;font-size:13px;font-weight:650;color:var(--muted);transition:all .2s}
     .platform-tab.active{background:var(--white);color:var(--green-text);box-shadow:0 1px 4px rgba(0,0,0,.08)}
-    .import-area{border:2px dashed var(--border);border-radius:14px;padding:30px;text-align:center;cursor:pointer;background:var(--surface);transition:all .2s;color:var(--muted)}
+    .import-area{border:2px dashed var(--border);border-radius:var(--r-md);padding:30px;text-align:center;cursor:pointer;background:var(--surface);transition:all .2s;color:var(--muted)}
     .import-area:hover{border-color:var(--green);background:var(--green-soft);color:var(--green-text)}
-    .toast{position:fixed;bottom:30px;right:30px;background:var(--green-dark);color:white;padding:14px 24px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);z-index:1000;display:none;animation:si .3s ease;font-weight:600}
-    .bars{display:flex;align-items:flex-end;gap:5px;height:140px;margin-top:15px;background:var(--surface);padding:10px;border-radius:12px}
+    .toast{position:fixed;bottom:30px;right:30px;background:var(--green-dark);color:white;padding:14px 24px;border-radius:var(--r-md);box-shadow:var(--shadow-lg);z-index:1000;display:none;animation:si .3s ease;font-weight:600}
+    .bars{display:flex;align-items:flex-end;gap:5px;height:140px;margin-top:15px;background:var(--surface);padding:10px;border-radius:var(--r-md)}
     .bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;text-align:center;min-width:0}
     .bar i{display:block;background:var(--green);border-radius:4px 4px 0 0;min-height:4px}
     .bar i.neg{background:var(--orange)}
-    .streak-box{display:flex;gap:12px;align-items:center;background:var(--green-soft);padding:15px;border-radius:14px;margin:15px 0}
+    .streak-box{display:flex;gap:12px;align-items:center;background:var(--green-soft);padding:15px;border-radius:var(--r-md);margin:15px 0}
     .streak-box b{font-size:32px;color:var(--green-text)}
     .streak-box .done{color:var(--green-text);font-weight:700}
-    .pill{display:inline-flex;padding:5px 12px;border-radius:99px;font-size:12px;font-weight:700;background:var(--green-soft);color:var(--green-text)}
+    .pill{display:inline-flex;padding:5px 12px;border-radius:var(--r-pill);font-size:12px;font-weight:700;background:var(--green-soft);color:var(--green-text)}
     .pill.orange{background:color-mix(in srgb, var(--orange) 12%, var(--white));color:var(--orange)}
     .pill.blue{background:color-mix(in srgb, var(--blue) 12%, var(--white));color:var(--blue)}
     .pill.gray{background:var(--surface);color:var(--muted)}
@@ -119,13 +135,40 @@
     .ptable{width:100%;font-size:13px;border-collapse:collapse;margin-top:12px}
     .ptable th,.ptable td{border:1px solid var(--border-soft);padding:10px;text-align:left}
     .ptable th{background:var(--surface);font-weight:700}
-    details.gloss{border:1px solid var(--border-soft);border-radius:12px;padding:12px 16px;margin-bottom:8px;background:var(--white)}
+    details.gloss{border:1px solid var(--border-soft);border-radius:var(--r-md);padding:12px 16px;margin-bottom:8px;background:var(--white)}
     details.gloss summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--green-text)}
     details.gloss p{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6}
-    .chip{display:inline-block;padding:7px 14px;border:1px solid var(--border);border-radius:12px;font-size:12px;font-weight:600;cursor:pointer;margin:5px 5px 0 0;background:var(--white);color:var(--muted)}
+    .chip{display:inline-block;padding:7px 14px;border:1px solid var(--border);border-radius:var(--r-md);font-size:12px;font-weight:600;cursor:pointer;margin:5px 5px 0 0;background:var(--white);color:var(--muted)}
     .chip:hover,.chip.selected{border-color:var(--green);background:var(--green-soft);color:var(--green-text)}
-    .progress{height:10px;border-radius:99px;background:var(--surface);overflow:hidden;margin-top:10px}
-    .progress i{display:block;height:100%;background:var(--green);border-radius:99px;transition:width .5s ease}
+    .progress{height:10px;border-radius:var(--r-pill);background:var(--surface);overflow:hidden;margin-top:10px}
+    .progress i{display:block;height:100%;background:var(--green);border-radius:var(--r-pill);transition:width .5s ease}
+    .card>.detail,.platform-calc>.detail{font-size:13px;line-height:1.7;color:var(--muted)}
+    @media(max-width:600px){.toast{left:16px;right:16px;bottom:18px;text-align:center;padding:12px 16px}}
+
+    /* MODE FOKUS BELAJAR */
+    .focus-btn{margin-left:auto;padding:5px 13px!important;font-size:12px;font-weight:700;border:1px solid color-mix(in srgb, var(--green) 22%, transparent);border-radius:var(--r-pill);background:var(--green-soft);color:var(--green-text);cursor:pointer;flex-shrink:0;transition:.18s ease}
+    .focus-btn:hover{background:color-mix(in srgb, var(--green) 20%, var(--white));transform:translateY(-1px)}
+    #focus-hud{display:none;position:fixed;top:0;left:0;right:0;z-index:200;align-items:center;gap:10px;padding:10px 18px;background:var(--white);border-bottom:1px solid var(--border-soft);box-shadow:var(--shadow)}
+    body.focus-mode{background:var(--bg)}
+    body.focus-mode header{display:none}
+    body.focus-mode #focus-hud{display:flex}
+    body.focus-mode .focus-hide{display:none!important}
+    body.focus-mode main{margin-top:86px}
+    body.focus-mode .page.active>.card{max-width:860px;margin-left:auto;margin-right:auto}
+    body.focus-solo .page.active>.card:not(.focus-current){display:none}
+    body.focus-solo .card.focus-current{max-width:780px;padding:32px}
+    body.focus-solo .card.focus-current .focus-btn{display:none}
+    body.focus-solo .card.focus-current ul li,body.focus-solo .card.focus-current .case-study,body.focus-solo .card.focus-current .detail{font-size:15px;line-height:1.8}
+    .card h2{flex-wrap:wrap}
+    #focus-hud .fdot{width:10px;height:10px;border-radius:50%;background:var(--green);flex-shrink:0}
+    #focus-hud .fclock{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:800;font-size:18px;color:var(--green-text);letter-spacing:.5px}
+    #focus-hud .btn{padding:7px 14px;font-size:13px}
+    @media(max-width:600px){
+      #focus-hud{padding:8px 12px;gap:6px}
+      #focus-hud .flabel{display:none}
+      #focus-hud .btn{padding:6px 10px;font-size:12px}
+      body.focus-solo .card.focus-current{padding:20px}
+    }
   </style>
 </head>
 <body>
@@ -383,6 +426,12 @@
 
     <!-- BELAJAR -->
     <div id="belajar" class="page">
+      <div class="card focus-hide">
+        <h2>Mode Fokus Belajar <span class="tip" data-tip="Sembunyikan menu &amp; kartu lain, perbesar teks, dan jalankan timer 25 menit.">?</span></h2>
+        <div class="detail"><b>Fungsi:</b> membaca materi tanpa gangguan. Saat aktif, header/navigasi dan kartu lain disembunyikan, lebar bacaan dibatasi supaya mata tidak cepat lelah, dan ukuran teks diperbesar.<br><b>Cara pakai:</b> klik <b>Mulai Mode Fokus</b> untuk mode baca umum, atau tombol <b>🎯 Fokus</b> di kanan judul bab untuk mengisolasi satu bab saja.<br><b>Timer:</b> 25 menit (teknik Pomodoro). Klik <b>Mulai</b> di bar atas untuk jalan, <b>Jeda</b> untuk berhenti sementara, <b>Reset</b> untuk mengulang dari 25:00. Ada bunyi bip saat waktu habis — lanjut istirahat 5 menit.<br><b>Keluar:</b> tombol <b>Keluar</b> di bar atas atau tekan <b>Esc</b>.</div>
+        <button class="btn" onclick="enterFocus()">🎯 Mulai Mode Fokus</button>
+      </div>
+
       <div class="card lesson">
         <h2>Bab 1: Dasar Digital Marketing</h2>
         <div class="case-study"><strong>Studi Kasus:</strong> UMKM bakso Pak Budi pakai Facebook Ads budget Rp50.000/hari selama 30 hari. Revenue Rp15 juta, ROAS 10x. Strategi: targeting minat kuliner lokal + testimoni video.</div>
@@ -500,7 +549,7 @@
     <div id="tracker" class="page">
       <div class="card">
         <h2>Tracker Pengeluaran Iklan Harian</h2>
-        <div class="detail"><b>Fungsi:</b> catat biaya iklan + revenue tiap hari untuk tahu profit harian.<br><b>Cara pakai:</b> pilih tanggal, isi expenditure &amp; revenue, klik Tambah. Ringkasan total otomatis muncul di bawah.<br><b>Ubah/Hapus:</b> tombol <b>Ubah</b> memuat entry ke form (lalu klik Tambah untuk simpan versi baru), tombol <b>X</b> menghapus entry.<br><b>Streak:</b> jumlah hari berturut-turut kamu mencatat — konsistensi data lebih penting dari angka besar.<br><b>Grafik 14 hari:</b> batang hijau = profit, merah = rugi. Arahkan kursor untuk lihat nominal per tanggal.<br><b>Target bulanan:</b> isi target revenue bulan ini; progress bar hijau bila &gt;100%, kuning 50-99%, merah &lt;50%.<br><b>Indikator:</b> centang hijau = profit, silang merah = rugi.</div>
+        <div class="detail"><b>Fungsi:</b> catat biaya iklan + revenue tiap hari untuk tahu profit harian.<br><b>Cara pakai:</b> pilih tanggal, isi expenditure &amp; revenue, klik Tambah. Ringkasan total otomatis muncul di bawah.<br><b>Ubah/Hapus:</b> tombol <b>Ubah</b> memuat entry ke form (lalu klik Tambah untuk simpan versi baru), tombol <b>X</b> menghapus entry.<br><b>Streak:</b> jumlah hari berturut-turut kamu mencatat — konsistensi data lebih penting dari angka besar.<br><b>Grafik 14 hari:</b> batang hijau = profit, merah = rugi. Arahkan kursor untuk lihat nominal per tanggal.<br><b>Target bulanan:</b> isi target revenue bulan ini; progress bar hijau bila &gt;100%, kuning 50-99%, merah &lt;50%.<br><b>Indikator:</b> centang hijau = profit, silang merah = rugi.<br><b>Gambar mingguan:</b> tombol <b>📷 Simpan Ringkasan Mingguan</b> membuat gambar 1080×1080 berisi profit, biaya, revenue, perbandingan minggu lalu, dan grafik 7 hari — siap dibagikan ke WhatsApp/Instagram.</div>
         <div id="tracker-list"></div>
         <div class="tracker-row" style="margin-top:10px">
           <div><label>Tanggal</label><input type="date" id="tracker-date" style="margin-bottom:0"></div>
@@ -511,6 +560,10 @@
         <div id="tracker-total" class="tracker-total" style="display:none"></div>
         <div class="streak-box" id="streak-box" style="margin-top:10px"></div>
         <div class="detail" id="week-sum" style="display:none;margin-top:8px"></div>
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button class="btn btn-ok" onclick="exportWeekImage()">📷 Simpan Ringkasan Mingguan (PNG)</button>
+          <span style="font-size:12px;color:var(--muted)">Gambar 1080×1080, siap dibagikan.</span>
+        </div>
         <div style="margin-top:10px"><b style="font-size:13px">Grafik profit 14 hari</b><div class="bars" id="profit-bars"></div></div>
         <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">
           <div style="display:flex;gap:8px;align-items:end;flex-wrap:wrap">
@@ -520,7 +573,7 @@
           <div style="background:var(--border);border-radius:6px;height:14px;overflow:hidden;margin-top:8px"><div id="target-fill" style="height:100%;width:0%;background:var(--success);transition:width .5s"></div></div>
           <div id="target-text" style="font-size:12px;color:var(--muted);margin-top:4px"></div>
         </div>
-        <div style="margin-top:10px"><button class="btn-danger" onclick="clearTracker()">Hapus Semua Tracker</button></div>
+        <div style="margin-top:10px"><button class="btn btn-danger" onclick="clearTracker()">Hapus Semua Tracker</button></div>
       </div>
     </div>
 
@@ -528,10 +581,11 @@
     <div id="integrasi" class="page">
       <div class="card">
         <h2>Export Data</h2>
-        <div class="detail"><b>JSON:</b> backup lengkap semua data (planner, tracker, skor kuis, catatan bab, produk, target, checklist) untuk dipindah ke perangkat lain. API key AI tidak ikut diekspor.<br><b>CSV:</b> buka di Excel/Google Sheets untuk analisis atau laporan.<br><b>Laporan bulanan:</b> pilih bulan lalu klik Cetak / Simpan PDF — hasilnya laporan rapi berisi total, progress target, dan rincian harian. Di dialog cetak pilih "Save as PDF" untuk simpan file.</div>
+        <div class="detail"><b>JSON:</b> backup lengkap semua data (planner, tracker, skor kuis, catatan bab, produk, target, checklist) untuk dipindah ke perangkat lain. API key AI tidak ikut diekspor.<br><b>CSV:</b> buka di Excel/Google Sheets untuk analisis atau laporan.<br><b>Laporan bulanan:</b> pilih bulan lalu klik Cetak / Simpan PDF — hasilnya laporan rapi berisi total, progress target, dan rincian harian. Di dialog cetak pilih "Save as PDF" untuk simpan file.<br><b>Gambar mingguan:</b> PNG 1080×1080 berisi profit, biaya, revenue, perbandingan minggu lalu, dan grafik 7 hari. Cocok untuk story/feed atau laporan ke klien.</div>
         <button class="btn btn-ok" onclick="exportJSON()">Export JSON (Backup)</button>
         <button class="btn btn-ok" onclick="exportPlannerCSV()">Export Planner CSV</button>
         <button class="btn btn-ok" onclick="exportTrackerCSV()">Export Tracker CSV</button>
+        <button class="btn btn-ok" onclick="exportWeekImage()">Export Gambar Mingguan</button>
         <div style="margin-top:8px;display:flex;gap:8px;align-items:end;flex-wrap:wrap">
           <div><label>Laporan bulanan (pilih bulan)</label><input type="month" id="report-month" style="margin-bottom:0;width:170px"></div>
           <button class="btn" style="margin-bottom:0" onclick="printReport()">Cetak / Simpan PDF</button>
@@ -560,7 +614,7 @@
           <button class="btn btn-warn" onclick="document.getElementById('file-input').click()">Import JSON</button>
           <input type="file" id="file-input" accept=".json" style="display:none" onchange="importData(event)">
         </div>
-        <div style="margin-top:10px"><button class="btn-danger" onclick="clearAllData()">Hapus Semua Data</button></div>
+        <div style="margin-top:10px"><button class="btn btn-danger" onclick="clearAllData()">Hapus Semua Data</button></div>
       </div>
       <div class="card">
         <h2>Panduan Singkat</h2>
@@ -570,6 +624,13 @@
   </main>
 
   <div class="toast" id="toast"></div>
+  <div id="focus-hud" role="region" aria-label="Mode fokus belajar">
+    <span class="fdot"></span><b class="flabel">Mode Fokus</b>
+    <span class="fclock" id="focus-clock">25:00</span>
+    <button class="btn btn-ok" id="focus-start" onclick="toggleFocusTimer()">Mulai</button>
+    <button class="btn btn-warn" onclick="focusReset()">Reset</button>
+    <button class="btn" onclick="exitFocus()">Keluar</button>
+  </div>
 
   <script>
     // DATA LAYER (Phase 7): IndexedDB primary + localStorage mirror (fallback/backup)
@@ -596,7 +657,7 @@
     document.documentElement.setAttribute('data-theme', LS.getItem('pk_theme') || 'light');
     function toggleTheme(){const n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);LS.setItem('pk_theme',n)}
     // NAV
-    function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');const b=Array.from(document.querySelectorAll('nav button')).find(x=>x.getAttribute('onclick').includes("'"+id+"'"));if(b)b.classList.add('active')}
+    function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');const b=Array.from(document.querySelectorAll('nav button')).find(x=>x.getAttribute('onclick').includes("'"+id+"'"));if(b)b.classList.add('active');if(id!=='belajar')exitFocus()}
     // HELPERS
     function fmt(n){return 'Rp '+Math.round(n).toLocaleString('id-ID')}
     function dl(content,name,mime){const b=new Blob([content],{type:mime});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
@@ -766,7 +827,7 @@
         te+=e.expenditure||0;tr+=e.revenue||0;
         const p=(e.revenue||0)-(e.expenditure||0);
         return '<div class="tracker-row" style="grid-template-columns:1fr 1fr 1fr auto auto"><div><b>'+e.date+'</b></div><div>Biaya: '+fmt(e.expenditure||0)+'</div><div>Rev: '+fmt(e.revenue||0)+'</div><div>'+(p>=0?'OK ':'RUGI ')+fmt(p)+'</div>'+
-          '<div style="display:flex;gap:4px"><button class="btn" style="padding:4px 8px;font-size:11px" onclick="editEntry('+o.i+')">Ubah</button><button class="btn-danger" style="padding:4px 8px;font-size:11px" onclick="delEntry('+o.i+')">X</button></div></div>';
+          '<div style="display:flex;gap:4px"><button class="btn" style="padding:4px 8px;font-size:11px" onclick="editEntry('+o.i+')">Ubah</button><button class="btn btn-danger" style="padding:4px 8px;font-size:11px" onclick="delEntry('+o.i+')">X</button></div></div>';
       }).reverse().join('');
       const el=E('tracker-total');el.style.display='block';
       el.innerHTML='Total '+entries.length+' hari: Biaya <b>'+fmt(te)+'</b> | Revenue <b>'+fmt(tr)+'</b> | Profit <b>'+fmt(tr-te)+'</b>';
@@ -1040,7 +1101,7 @@
         return '<div class="tracker-row" style="align-items:center"><div><b>'+p.n+'</b></div>'+
           '<div>Jual '+fmt(p.s)+' | Modal '+fmt(p.c)+'</div>'+
           '<div style="color:'+(margin<20?'var(--error-text)':margin<=50?'var(--warn-text)':'var(--success-text)')+'">Margin '+margin.toFixed(0)+'% | Markup '+markup.toFixed(0)+'% | Profit '+fmt(profit)+'</div>'+
-          '<div><button class="btn-danger" style="padding:4px 8px;font-size:11px" onclick="delProduct('+i+')">Hapus</button></div></div>';
+          '<div><button class="btn btn-danger" style="padding:4px 8px;font-size:11px" onclick="delProduct('+i+')">Hapus</button></div></div>';
       }).join('');
     }
 
@@ -1079,20 +1140,86 @@
         return '<div class="bar" title="'+x.k+': '+fmt(x.v)+'" style="flex:1"><i class="'+(x.v<0?'neg':'')+'" style="display:block;width:100%;height:'+h+'%;background:'+bg+';border-radius:3px 3px 0 0"></i></div>';
       }).join('');
     }
-    function renderWeekSum(){
+    function weekStats(){
       const entries=JSON.parse(LS.getItem('pk_tracker')||'[]');
       const now=new Date(),dow=(now.getDay()+6)%7;
-      const mon=new Date(now);mon.setDate(now.getDate()-dow);
-      const prev=new Date(mon);prev.setDate(mon.getDate()-7);
-      const m=isoL(mon),p=isoL(prev);
-      let e1=0,r1=0,e2=0,r2=0;
-      entries.forEach(x=>{
-        if(x.date>=m){e1+=x.expenditure||0;r1+=x.revenue||0}
-        else if(x.date>=p){e2+=x.expenditure||0;r2+=x.revenue||0}
-      });
-      const p1=r1-e1,p2=r2-e2,delta=p1-p2;
+      const mon=new Date(now);mon.setHours(0,0,0,0);mon.setDate(mon.getDate()-dow);
+      const prevMon=new Date(mon);prevMon.setDate(mon.getDate()-7);
+      const days=[];
+      for(let i=0;i<7;i++){
+        const d=new Date(mon);d.setDate(mon.getDate()+i);const k=isoL(d);
+        const rows=entries.filter(e=>e.date===k);
+        const exp=rows.reduce((s,e)=>s+(e.expenditure||0),0),rev=rows.reduce((s,e)=>s+(e.revenue||0),0);
+        days.push({k,label:d.toLocaleDateString('id-ID',{weekday:'short'}),exp,rev,profit:rev-exp});
+      }
+      const cur={exp:days.reduce((s,d)=>s+d.exp,0),rev:days.reduce((s,d)=>s+d.rev,0)};
+      cur.profit=cur.rev-cur.exp;
+      const pm=isoL(prevMon),mk=isoL(mon);
+      const pr=entries.filter(e=>e.date>=pm&&e.date<mk);
+      const prev={exp:pr.reduce((s,e)=>s+(e.expenditure||0),0),rev:pr.reduce((s,e)=>s+(e.revenue||0),0)};
+      prev.profit=prev.rev-prev.exp;
+      const end=new Date(mon);end.setDate(mon.getDate()+6);
+      return {days,cur,prev,start:mon,end};
+    }
+    function renderWeekSum(){
+      const s=weekStats();
+      const delta=s.cur.profit-s.prev.profit;
       const el=E('week-sum');el.style.display='block';
-      el.innerHTML='<b>Ringkasan minggu ini:</b> Biaya '+fmt(e1)+', Revenue '+fmt(r1)+', Profit <b>'+fmt(p1)+'</b><br>vs minggu lalu: '+fmt(p2)+' (selisih '+(delta>=0?'+':'')+fmt(delta)+')';
+      el.innerHTML='<b>Ringkasan minggu ini:</b> Biaya '+fmt(s.cur.exp)+', Revenue '+fmt(s.cur.rev)+', Profit <b>'+fmt(s.cur.profit)+'</b><br>vs minggu lalu: '+fmt(s.prev.profit)+' (selisih '+(delta>=0?'+':'-')+fmt(Math.abs(delta))+')';
+    }
+    // EXPORT GAMBAR RINGKASAN MINGGUAN (canvas, tanpa library)
+    async function exportWeekImage(){
+      const s=weekStats();
+      const W=1080,H=1080,cv=document.createElement('canvas');
+      cv.width=W;cv.height=H;
+      const g=cv.getContext('2d');
+      try{if(document.fonts&&document.fonts.ready)await document.fonts.ready}catch(e){}
+      const BG='#FAF9F5',CARD='#FFFFFF',GREEN='#1D6F42',SOFT='#E3F2EA',INK='#1C1C1A',MUTED='#5F5E57',BORDER='#D9D6CA',RED='#B8391A';
+      const font=(w,z)=>w+' '+z+'px Inter,system-ui,"Segoe UI",Arial,sans-serif';
+      const rr=(x,y,w,h,r)=>{r=Math.min(r,w/2,h/2);g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()};
+      g.fillStyle=BG;g.fillRect(0,0,W,H);
+      g.fillStyle=GREEN;g.fillRect(0,0,W,10);
+      g.fillStyle=GREEN;g.font=font(800,36);g.fillText('PemasarKilat',60,100);
+      g.fillStyle=MUTED;g.font=font(500,22);g.fillText('Ringkasan Mingguan',60,136);
+      const rng=s.start.toLocaleDateString('id-ID',{day:'numeric',month:'short'})+' - '+s.end.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+      g.textAlign='right';g.fillStyle=MUTED;g.font=font(600,22);g.fillText(rng,W-60,116);g.textAlign='left';
+      rr(60,176,W-120,224,28);g.fillStyle=SOFT;g.fill();
+      g.fillStyle=GREEN;g.font=font(700,20);g.fillText('PROFIT MINGGU INI',92,226);
+      g.fillStyle=s.cur.profit<0?RED:GREEN;g.font=font(800,74);g.fillText(fmt(s.cur.profit),92,310);
+      const delta=s.cur.profit-s.prev.profit;
+      g.fillStyle=MUTED;g.font=font(500,22);
+      g.fillText('Minggu lalu: '+fmt(s.prev.profit)+'     Selisih: '+(delta>=0?'+':'-')+fmt(Math.abs(delta)),92,362);
+      const bw=(W-120-24)/2;
+      const stat=(x,label,val,color)=>{
+        rr(x,428,bw,132,22);g.fillStyle=CARD;g.fill();g.strokeStyle=BORDER;g.lineWidth=2;g.stroke();
+        g.fillStyle=MUTED;g.font=font(700,18);g.fillText(label,x+26,470);
+        g.fillStyle=color;g.font=font(800,36);g.fillText(val,x+26,528);
+      };
+      stat(60,'BIAYA IKLAN',fmt(s.cur.exp),INK);
+      stat(84+bw,'REVENUE',fmt(s.cur.rev),GREEN);
+      g.fillStyle=INK;g.font=font(700,26);g.fillText('Profit 7 hari terakhir',60,622);
+      const maxV=Math.max(1,...s.days.map(d=>Math.abs(d.profit)));
+      const top=668,base=884,slot=(W-120)/7;
+      g.strokeStyle=BORDER;g.lineWidth=2;g.beginPath();g.moveTo(60,base);g.lineTo(W-60,base);g.stroke();
+      s.days.forEach((d,i)=>{
+        const bx=60+i*slot+16,bwid=slot-32;
+        const h=Math.max(6,Math.abs(d.profit)/maxV*(base-top));
+        g.fillStyle=d.profit<0?RED:(d.profit>0?GREEN:BORDER);
+        rr(bx,base-h,bwid,h,7);g.fill();
+        g.fillStyle=MUTED;g.font=font(600,20);g.textAlign='center';
+        g.fillText(d.label,bx+bwid/2,base+30);
+        g.textAlign='left';
+      });
+      g.fillStyle=MUTED;g.font=font(500,20);
+      g.fillText('Dibuat '+new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'})+'  |  gratis, offline, tanpa akun',60,H-42);
+      cv.toBlob(b=>{
+        if(!b){showToast('Gagal membuat gambar');return}
+        const u=URL.createObjectURL(b),a=document.createElement('a');
+        a.href=u;a.download='ringkasan-mingguan-'+isoL(new Date())+'.png';
+        document.body.appendChild(a);a.click();a.remove();
+        setTimeout(()=>URL.revokeObjectURL(u),3000);
+        showToast('Gambar ringkasan mingguan disimpan');
+      },'image/png');
     }
 
     // AI CAPTION
@@ -1238,9 +1365,73 @@
       });
     }
 
+    // MODE FOKUS BELAJAR
+    let focusTimer=null,focusLeft=25*60,focusRunning=false;
+    function focusClock(){
+      const el=E('focus-clock');
+      if(el)el.textContent=String(Math.floor(focusLeft/60)).padStart(2,'0')+':'+String(focusLeft%60).padStart(2,'0');
+    }
+    function enterFocus(card){
+      if(!document.getElementById('belajar').classList.contains('active'))show('belajar');
+      document.body.classList.add('focus-mode');
+      document.body.classList.toggle('focus-solo',!!card);
+      document.querySelectorAll('.page .card.focus-current').forEach(c=>c.classList.remove('focus-current'));
+      if(card)card.classList.add('focus-current');
+      focusLeft=25*60;focusRunning=false;clearInterval(focusTimer);focusTimer=null;
+      E('focus-start').textContent='Mulai';focusClock();
+      window.scrollTo({top:0,behavior:'smooth'});
+      showToast(card?'Mode fokus 1 bab aktif - Esc untuk keluar':'Mode fokus aktif - Esc untuk keluar');
+    }
+    function exitFocus(){
+      if(!document.body.classList.contains('focus-mode')&&!document.body.classList.contains('focus-solo'))return;
+      document.body.classList.remove('focus-mode','focus-solo');
+      document.querySelectorAll('.card.focus-current').forEach(c=>c.classList.remove('focus-current'));
+      clearInterval(focusTimer);focusTimer=null;focusRunning=false;
+    }
+    function toggleFocusTimer(){
+      if(focusRunning){clearInterval(focusTimer);focusTimer=null;focusRunning=false;E('focus-start').textContent='Lanjut';return}
+      if(focusLeft<=0){focusLeft=25*60;focusClock()}
+      focusRunning=true;E('focus-start').textContent='Jeda';
+      focusTimer=setInterval(()=>{
+        focusLeft--;focusClock();
+        if(focusLeft<=0){
+          clearInterval(focusTimer);focusTimer=null;focusRunning=false;
+          E('focus-start').textContent='Mulai';
+          focusBeep();showToast('Sesi fokus selesai - istirahat 5 menit, lalu mulai lagi');
+        }
+      },1000);
+    }
+    function focusReset(){
+      clearInterval(focusTimer);focusTimer=null;focusRunning=false;
+      focusLeft=25*60;focusClock();E('focus-start').textContent='Mulai';
+    }
+    function focusBeep(){
+      try{
+        const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+        const ac=new AC(),o=ac.createOscillator(),gn=ac.createGain();
+        o.type='sine';o.frequency.value=880;gn.gain.value=.07;
+        o.connect(gn);gn.connect(ac.destination);o.start();
+        setTimeout(()=>{try{o.stop();ac.close()}catch(e){}},700);
+      }catch(e){}
+    }
+    function decorateLessons(){
+      document.querySelectorAll('#belajar .card.lesson').forEach(c=>{
+        const h=c.querySelector('h2');
+        if(!h||h.querySelector('.focus-btn'))return;
+        const b=document.createElement('button');
+        b.type='button';b.className='focus-btn';b.textContent='🎯 Fokus';
+        b.title='Baca bab ini tanpa gangguan';
+        b.onclick=()=>enterFocus(c);
+        h.appendChild(b);
+      });
+    }
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Escape'&&document.body.classList.contains('focus-mode'))exitFocus();
+    });
+
     // INIT (render 2x: langsung dari localStorage, lalu setelah IndexedDB selesai dimuat)
     function initUI(){
-      renderPlanner();renderTracker();renderStreak();renderChart();renderWeekSum();loadNotes();loadProducts();loadChecklist();
+      renderPlanner();renderTracker();renderStreak();renderChart();renderWeekSum();loadNotes();loadProducts();loadChecklist();decorateLessons();
       E('tracker-date').valueAsDate=new Date();
       const savedKey=LS.getItem('pk_ai_key');if(savedKey)E('ai-key').value=savedKey;
     }
