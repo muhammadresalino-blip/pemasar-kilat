@@ -1,5 +1,5 @@
-const CACHE_NAME = 'pemasarkilat-v5';
-const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
+const CACHE_NAME = 'pemasarkilat-v6';
+const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './screenshot-wide.png', './screenshot-narrow.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)));
